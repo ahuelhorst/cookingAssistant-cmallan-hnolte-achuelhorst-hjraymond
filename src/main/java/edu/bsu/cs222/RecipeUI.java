@@ -7,7 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,35 +17,62 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class RecipeUI extends Application {
+
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable recipeTask = new RecipeTask();
-
+    private final Label nutritionInfo = new Label();
     private final Label inputInfo = new Label();
     private final Label outputInfo = new Label();
-    private final TextField userInput;
-    private final TextArea output;
-    private final Button retrieveButton;
+    private TextField userInput;
+    private TextArea recipeOutput;
+    private Button retrieveButton;
 
-    public RecipeUI() {
-        inputInfo.setText("Enter Ingredients: ");
+    public TextField createUserInput() {
         userInput = new TextField();
-        retrieveButton = new Button("Get Recipe");
-        outputInfo.setText("Recipe Found: ");
-        output = new TextArea();
-        output.setEditable(false);
-        output.setPrefHeight(500);
+        return userInput;
+    }
+    public Label nutritionInfoLabel(){
+        nutritionInfo.setText("Nutrition Information Found: ");
+        nutritionInfo.setFont(Font.font(15));
+        return nutritionInfo;
+    }
+    public Label outputInfoLabel(){
+        outputInfo.setText("Recipes Found: ");
+        outputInfo.setFont(Font.font(15));
+        return outputInfo;
+    }
+    public Label userInfoLabel(){
+        inputInfo.setText("Enter Ingredients: ");
+        inputInfo.setFont(Font.font(19));
+        return inputInfo;
+    }
+    public Button createRetrieveButton(){
+        retrieveButton = new Button("Get Recipes");
         retrieveButton.setOnAction(event -> executor.execute(recipeTask));
+        return retrieveButton;
+    }
+    public TextArea createNutritionOutput(){
+        TextArea nutritionOutput = new TextArea();
+        nutritionOutput.setEditable(false);
+        nutritionOutput.setPrefHeight(500);
+        return nutritionOutput;
+    }
+    public TextArea createRecipeOutput(){
+        recipeOutput = new TextArea();
+        recipeOutput.setEditable(false);
+        recipeOutput.setPrefHeight(500);
+        return recipeOutput;
     }
     public Parent createCookingUI() {
-
-        VBox vbox = new VBox();
-        vbox.setPrefSize(950, 600);
-        vbox.getChildren().add(inputInfo);
-        vbox.getChildren().add(userInput);
-        vbox.getChildren().add(retrieveButton);
-        vbox.getChildren().add(outputInfo);
-        vbox.getChildren().add(output);
-        return vbox;
+        HBox buttonBox = new HBox();
+        HBox labelBox = new HBox();
+        VBox container = new VBox();
+        container.setPrefSize(950, 600);
+        labelBox.getChildren().addAll(outputInfoLabel(), nutritionInfoLabel());
+        buttonBox.getChildren().add(createRetrieveButton());
+        container.getChildren().addAll(userInfoLabel(),createUserInput(),buttonBox,labelBox, new HBox(createRecipeOutput(), createNutritionOutput()));
+        labelBox.setSpacing(375);
+        return container;
     }
     @Override
     public void start(Stage primaryStage) {
@@ -61,10 +90,9 @@ public class RecipeUI extends Application {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            output.setText(recipes);
+            recipeOutput.setText(recipes);
             enableInput();
         }
-
         private void enableInput() {
             userInput.setDisable(false);
             retrieveButton.setDisable(false);
