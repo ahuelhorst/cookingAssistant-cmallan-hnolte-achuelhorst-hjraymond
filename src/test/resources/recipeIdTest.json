@@ -1,0 +1,91 @@
+[
+  {
+    "id": 1161746,
+    "title": "Peanut Butter Muffins",
+    "image": "https://spoonacular.com/recipeImages/1161746-312x231.jpg",
+    "imageType": "jpg",
+    "usedIngredientCount": 1,
+    "missedIngredientCount": 4,
+    "missedIngredients": [
+      {
+        "id": 8120,
+        "amount": 0.75,
+        "unit": "cup",
+        "unitLong": "cups",
+        "unitShort": "cup",
+        "aisle": "Cereal",
+        "name": "old fashioned oats",
+        "original": "3/4 cup old fashioned oats",
+        "originalString": "3/4 cup old fashioned oats",
+        "originalName": "old fashioned oats",
+        "metaInformation": [],
+        "meta": [],
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/rolled-oats.jpg"
+      },
+      {
+        "id": 18371,
+        "amount": 1.5,
+        "unit": "tsp",
+        "unitLong": "teaspoons",
+        "unitShort": "tsp",
+        "aisle": "Baking",
+        "name": "baking powder",
+        "original": "1 1/2 tsp baking powder",
+        "originalString": "1 1/2 tsp baking powder",
+        "originalName": "baking powder",
+        "metaInformation": [],
+        "meta": [],
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg"
+      },
+      {
+        "id": 1077,
+        "amount": 1.25,
+        "unit": "cup",
+        "unitLong": "cups",
+        "unitShort": "cup",
+        "aisle": "Milk, Eggs, Other Dairy",
+        "name": "milk",
+        "original": "1 1/4 cup milk",
+        "originalString": "1 1/4 cup milk",
+        "originalName": "milk",
+        "metaInformation": [],
+        "meta": [],
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/milk.png"
+      },
+      {
+        "id": 1123,
+        "amount": 1.0,
+        "unit": "",
+        "unitLong": "",
+        "unitShort": "",
+        "aisle": "Milk, Eggs, Other Dairy",
+        "name": "egg",
+        "original": "1 egg",
+        "originalString": "1 egg",
+        "originalName": "egg",
+        "metaInformation": [],
+        "meta": [],
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/egg.png"
+      }
+    ],
+    "usedIngredients": [
+      {
+        "id": 10116098,
+        "amount": 0.25,
+        "unit": "cup",
+        "unitLong": "cups",
+        "unitShort": "cup",
+        "aisle": "Nut butters, Jams, and Honey",
+        "name": "creamy peanut butter",
+        "original": "1/4 cup peanut butter creamy",
+        "originalString": "1/4 cup peanut butter creamy",
+        "originalName": "peanut butter creamy",
+        "metaInformation": [],
+        "meta": [],
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png"
+      }
+    ],
+    "unusedIngredients": [],
+    "likes": 1
+  }
+]
