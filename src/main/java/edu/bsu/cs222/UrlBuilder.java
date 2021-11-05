@@ -1,23 +1,22 @@
 package edu.bsu.cs222;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
+import java.util.Scanner;
 
 public class UrlBuilder {
 
-    BufferedReader br = new BufferedReader(new InputStreamReader((Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("key.txt")))));
-    String key = (br.readLine());
+    private File file = new File("/Users/abbyhuelhorst/Desktop/CS222/cookingAssistant/src/main/resources/key.txt");
+    private Scanner scanner = new Scanner(file);
+    private String key = scanner.nextLine();
 
-
-
-
-    public UrlBuilder() throws IOException {
+    public UrlBuilder() throws FileNotFoundException {
     }
-
     public URL buildIngredientUrl(String ingredients) throws MalformedURLException, UnsupportedEncodingException {
         String queryString = encodeIngredientString(ingredients);
         String urlString = String.format("https://api.spoonacular.com/recipes/findByIngredients?" +
@@ -32,11 +31,5 @@ public class UrlBuilder {
     }
     public String encodeIngredientString(String query) throws UnsupportedEncodingException {
         return URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
-    }
-    public URL buildNutritionUrl(String recipeId) throws MalformedURLException, UnsupportedEncodingException {
-        String nutritionQuery = encodeIngredientString(recipeId);
-        String urlString = String.format("https://api.spoonacular.com/recipes/%s/nutritionWidget.json" +
-                "apiKey=%s",nutritionQuery, key);
-        return new URL(urlString);
     }
 }
