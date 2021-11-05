@@ -10,7 +10,7 @@ public class RecipeFormatterTest {
     URL source = new URL("https://www.pinkwhen.com/peanut-butter-muffins/");
     String title = "Peanut Butter Muffins";
     String id = "1161746";
-    private RecipeFormatter formatter = new RecipeFormatter();
+    private OutputFormatter formatter = new OutputFormatter();
     Recipe recipe = new Recipe.Builder().withTitle(title).andId(id).andSource(source);
 
     public RecipeFormatterTest() throws MalformedURLException {
@@ -19,7 +19,7 @@ public class RecipeFormatterTest {
     @Test
     public void testFormatRecipe(){
         String formattedRecipe = String.format("Recipe Title: %s\nRecipe Link: %s", title, source);
-        String actualFormattedRecipe = formatter.formatResponse(recipe);
+        String actualFormattedRecipe = formatter.formatRecipe(recipe);
         Assertions.assertEquals(formattedRecipe, actualFormattedRecipe);
     }
 }
