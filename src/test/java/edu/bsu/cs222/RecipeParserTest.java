@@ -6,7 +6,7 @@ import java.net.URL;
 
 public class RecipeParserTest {
 
-    private RecipeParser parser = new RecipeParser();
+    private final RecipeParser parser = new RecipeParser();
 
     private String readFile(InputStream pathName) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
