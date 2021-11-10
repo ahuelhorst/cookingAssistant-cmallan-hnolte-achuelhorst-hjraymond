@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeParserTest {
 
@@ -20,10 +22,12 @@ public class RecipeParserTest {
 
    @Test
     public void testParseId() throws IOException {
+        ArrayList<String> expectedList = new ArrayList<String>(Arrays.asList("1161746", "634921", "655241", "673425","655212"));
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
-        String id = parser.parseRecipeId(data);
-        Assertions.assertEquals("1161746", id);
+        ArrayList<String> idList = parser.parseRecipeId(data);
+        Assertions.assertEquals(expectedList, idList);
     }
+
    @Test
     public void testParseTitle() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
