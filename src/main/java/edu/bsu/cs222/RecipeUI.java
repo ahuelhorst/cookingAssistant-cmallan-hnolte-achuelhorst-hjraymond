@@ -83,10 +83,11 @@ public class RecipeUI extends Application {
     private final class RecipeTask implements Runnable {
         @Override
         public void run() {
+            MainApplication mainApplication = new MainApplication();
             disableInput();
             String recipes = null;
             try {
-                recipes = Main.process(userInput.getText());
+                recipes = mainApplication.processRecipes(userInput.getText());
             } catch (IOException e) {
                 e.printStackTrace();
             }
