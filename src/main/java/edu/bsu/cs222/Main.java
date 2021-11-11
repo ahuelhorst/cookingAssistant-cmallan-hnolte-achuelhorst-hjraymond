@@ -2,25 +2,28 @@ package edu.bsu.cs222;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
-    public static String process(String text) throws IOException {
+    public static void main(String[] args) throws IOException {
 
-        RecipeParser parser = new RecipeParser();
-        UrlConnector connector = new UrlConnector();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter ingredients: ");
+        String ingredients = scanner.nextLine();
         UrlBuilder urlBuilder = new UrlBuilder();
-        URL ingredientUrl = urlBuilder.buildIngredientUrl(text);
 
-        String data = connector.openConnection(ingredientUrl);
-        String recipeId = parser.parseRecipeId(data);
-        URL recipeUrl = urlBuilder.buildRecipeUrl(recipeId);
-        String recipeData = connector.openConnection(recipeUrl);
+        URL ingredientUrl = urlBuilder.buildIngredientUrl(ingredients);
+        UrlConnector connector = new UrlConnector();
 
-        String title = parser.parseRecipeTitle(recipeData);
-        URL source = parser.parseRecipeSource(recipeData);
-        Recipe recipe = new Recipe.Builder().withTitle(title).andSource(source);
+        String ingredientData = connector.openConnection(ingredientUrl);
 
-        RecipeFormatter formatter = new RecipeFormatter();
-        return formatter.formatResponse(recipe);
+        RecipeResponse recipeResponse = new RecipeResponse();
+        ArrayList<Recipe> recipeList = recipeResponse.getRecipes(ingredientData);
+
+        OutputFormatter formatter = new OutputFormatter();
+
+        System.out.println(formatter.format(recipeList));
+
     }
 }
