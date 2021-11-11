@@ -31,7 +31,8 @@ public class UrlBuilder {
     }
     public URL buildNutritionUrl(String recipeId) throws UnsupportedEncodingException, MalformedURLException {
         String queryString = encodeString(recipeId);
-        String urlString = String.format("https://api.spoonacular.com/recipes/%s/nutritionWidget.json", queryString);
+        String urlString = String.format("https://api.spoonacular.com/recipes/%s/nutritionWidget.json?" +
+                "apiKey=%s&number=5", queryString, key);
         return new URL(urlString);
     }
 }
