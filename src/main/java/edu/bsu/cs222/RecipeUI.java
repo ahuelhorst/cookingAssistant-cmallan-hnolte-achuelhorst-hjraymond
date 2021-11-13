@@ -1,12 +1,15 @@
 package edu.bsu.cs222;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -17,7 +20,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class RecipeUI extends Application {
-
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable recipeTask = new RecipeTask();
     private final Label nutritionInfo = new Label();
@@ -26,9 +28,16 @@ public class RecipeUI extends Application {
     private TextField userInput;
     private TextArea recipeOutput;
     private Button retrieveButton;
-
     public TextField createUserInput() {
         userInput = new TextField();
+        userInput.setOnKeyPressed(new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent event){
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    retrieveButton.fire();
+                }
+            }
+        });
         return userInput;
     }
     public Label nutritionInfoLabel(){
@@ -104,3 +113,4 @@ public class RecipeUI extends Application {
         }
     }
 }
+
