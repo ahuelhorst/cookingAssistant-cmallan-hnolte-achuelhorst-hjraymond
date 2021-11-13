@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RecipeParserTest {
-
     private final RecipeParser parser = new RecipeParser();
 
     private String readFile(InputStream pathName) throws IOException {
@@ -19,20 +18,23 @@ public class RecipeParserTest {
         }
         return stringBuilder.toString();
     }
-
-   @Test
+    @Test
     public void testParseId() throws IOException {
         ArrayList<String> expectedList = new ArrayList<String>(Arrays.asList("1161746", "634921", "655241", "673425","655212"));
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
         ArrayList<String> idList = parser.parseRecipeId(data);
+        System.out.println(idList);
         Assertions.assertEquals(expectedList, idList);
     }
 
-   @Test
+    @Test
     public void testParseTitle() throws IOException {
+        ArrayList<String> expectedList = new ArrayList<String>(Arrays.asList("Peanut Butter Muffins", "Best Peanut Butter Cookies",
+                "Peanut Butter Banana Muffins", "Peanut Butter and Jelly Granola Bars","Peanut Butter and Apple Oatmeal Breakfast Bars"));
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
-        String title = parser.parseRecipeTitle(data);
-        Assertions.assertEquals("Peanut Butter Muffins", title);
+        ArrayList<String> titleList = parser.parseRecipeTitle(data);
+        System.out.println(titleList);
+        Assertions.assertEquals(expectedList, titleList);
     }
     @Test
     public void testParseSource() throws IOException {
@@ -41,4 +43,5 @@ public class RecipeParserTest {
         URL source = parser.parseRecipeSource(data);
         Assertions.assertEquals(url, source);
     }
+
 }

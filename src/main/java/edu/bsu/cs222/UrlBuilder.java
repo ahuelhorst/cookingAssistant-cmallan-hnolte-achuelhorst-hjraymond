@@ -17,13 +17,13 @@ public class UrlBuilder {
     public URL buildIngredientUrl(String ingredients) throws MalformedURLException, UnsupportedEncodingException {
         String queryString = encodeString(ingredients);
         String urlString = String.format("https://api.spoonacular.com/recipes/findByIngredients?" +
-                "apiKey=%s&ingredients=%s&number=1", key, queryString);
+                "apiKey=%s&ingredients=%s&number=5", key, queryString);
         return new URL(urlString);
     }
     public URL buildRecipeUrl(String recipeId) throws MalformedURLException, UnsupportedEncodingException {
         String queryString = encodeString(recipeId);
         String urlString = String.format("https://api.spoonacular.com/recipes/%s/information?" +
-                "apiKey=%s&number=1",queryString, key);
+                "apiKey=%s&number=5",queryString, key);
         return new URL(urlString);
     }
     public String encodeString(String query) throws UnsupportedEncodingException {
