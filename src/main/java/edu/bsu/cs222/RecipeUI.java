@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class RecipeUI extends Application {
     private final Label inputInfo = new Label();
     private final Label outputInfo = new Label();
     private TextField userInput;
+    private TextArea nutritionOutput;
     private TextArea recipeOutput;
     private Button retrieveButton;
     public TextField createUserInput() {
@@ -42,17 +44,17 @@ public class RecipeUI extends Application {
     }
     public Label nutritionInfoLabel(){
         nutritionInfo.setText("Nutrition Information Found: ");
-        nutritionInfo.setFont(Font.font(15));
+        nutritionInfo.setFont(Font.font("Times New Roman", 15));
         return nutritionInfo;
     }
     public Label outputInfoLabel(){
         outputInfo.setText("Recipes Found: ");
-        outputInfo.setFont(Font.font(15));
+        outputInfo.setFont(Font.font("Times New Roman", 15));
         return outputInfo;
     }
     public Label userInfoLabel(){
         inputInfo.setText("Enter Ingredients: ");
-        inputInfo.setFont(Font.font(19));
+        inputInfo.setFont(Font.font("Times New Roman",FontWeight.BOLD, 19));
         return inputInfo;
     }
     public Button createRetrieveButton(){
@@ -61,7 +63,7 @@ public class RecipeUI extends Application {
         return retrieveButton;
     }
     public TextArea createNutritionOutput(){
-        TextArea nutritionOutput = new TextArea();
+        nutritionOutput = new TextArea();
         nutritionOutput.setEditable(false);
         nutritionOutput.setPrefHeight(500);
         return nutritionOutput;
@@ -95,12 +97,15 @@ public class RecipeUI extends Application {
             MainApplication mainApplication = new MainApplication();
             disableInput();
             String recipes = null;
+            String nutrition = null;
             try {
                 recipes = mainApplication.processRecipes(userInput.getText());
+                nutrition = mainApplication.processNutrition(userInput.getText());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             recipeOutput.setText(recipes);
+            nutritionOutput.setText(nutrition);
             enableInput();
         }
         private void enableInput() {
