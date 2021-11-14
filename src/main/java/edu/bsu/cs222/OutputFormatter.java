@@ -13,6 +13,7 @@ public class OutputFormatter {
         }
         return stringBuilder.toString();
     }
+
     public String formatNutrition(ArrayList<Recipe> recipes){
         for (Recipe recipe : recipes){
             String calories = String.format("Calories: %s\nFat: %s\n\n", recipe.getCalories(), recipe.getFat());
