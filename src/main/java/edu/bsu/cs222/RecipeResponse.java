@@ -9,22 +9,23 @@ public class RecipeResponse {
     RecipeParser parser = new RecipeParser();
     NutritionParser nutritionParser = new NutritionParser();
     ArrayList<Recipe> recipeArrayList = new ArrayList<>();
+    ArrayList<String> titles = new ArrayList<>();
+    ArrayList<String> ids = new ArrayList<>();
 
     public ArrayList<Recipe> getRecipes(String data) throws IOException {
-
-        ArrayList<String> titles = parser.parseRecipeTitle(data);
-        ArrayList<String> ids = parser.parseRecipeId(data);
+        titles = parser.parseRecipeTitle(data);
+        ids = parser.parseRecipeId(data);
         for (int i = 0; i <= 4; i++) {
             String title = titles.get(i);
             String id = ids.get(i);
             URL sourceUrl = getSource(id);
             String calories = getCalories(id);
-            Recipe recipe = new Recipe.Builder().withTitle(title).andId(id).andCalories(calories).andSource(sourceUrl);
+            String fat = getFat(id);
+            Recipe recipe = new Recipe.Builder().withTitle(title).andId(id).andCalories(calories).andFat(fat).andSource(sourceUrl);
             recipeArrayList.add(recipe);
         }
         return recipeArrayList;
     }
-
     public URL getSource(String id) throws IOException {
         UrlBuilder urlBuilder = new UrlBuilder();
         UrlConnector connector = new UrlConnector();
@@ -32,8 +33,14 @@ public class RecipeResponse {
         String data = connector.openConnection(sourceUrl);
         return parser.parseRecipeSource(data);
     }
-
     public String getCalories(String id) throws IOException {
+        UrlBuilder urlBuilder = new UrlBuilder();
+        UrlConnector connector = new UrlConnector();
+        URL nutritionUrl = urlBuilder.buildNutritionUrl(id);
+        String data = connector.openConnection(nutritionUrl);
+        return nutritionParser.parseCalories(data);
+    }
+    public String getFat(String id) throws IOException {
         UrlBuilder urlBuilder = new UrlBuilder();
         UrlConnector connector = new UrlConnector();
         URL nutritionUrl = urlBuilder.buildNutritionUrl(id);
