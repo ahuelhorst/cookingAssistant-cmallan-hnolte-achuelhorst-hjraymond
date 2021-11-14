@@ -26,13 +26,13 @@ public class UrlBuilder {
                 "apiKey=%s&number=5",queryString, key);
         return new URL(urlString);
     }
-    public String encodeString(String query) throws UnsupportedEncodingException {
-        return URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
-    }
     public URL buildNutritionUrl(String recipeId) throws UnsupportedEncodingException, MalformedURLException {
         String queryString = encodeString(recipeId);
         String urlString = String.format("https://api.spoonacular.com/recipes/%s/nutritionWidget.json?" +
                 "apiKey=%s&number=5", queryString, key);
         return new URL(urlString);
+    }
+    public String encodeString(String query) throws UnsupportedEncodingException {
+        return URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
     }
 }

@@ -3,8 +3,8 @@ package edu.bsu.cs222;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 
-
 public class NutritionParser {
+
     public String parseCalories(String data) {
         JSONArray calorieInformation = JsonPath.read(data, "$..calories");
         return calorieInformation.get(0).toString();
@@ -21,5 +21,4 @@ public class NutritionParser {
         JSONArray proteinInformation = JsonPath.read(data, "$..protein");
         return proteinInformation.get(0).toString();
     }
-
 }
