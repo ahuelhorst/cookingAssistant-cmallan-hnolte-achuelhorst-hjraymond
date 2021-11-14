@@ -45,6 +45,6 @@ public class RecipeResponse {
         UrlConnector connector = new UrlConnector();
         URL nutritionUrl = urlBuilder.buildNutritionUrl(id);
         String data = connector.openConnection(nutritionUrl);
-        return nutritionParser.parseCalories(data);
+        return nutritionParser.parseFat(data);
     }
 }
