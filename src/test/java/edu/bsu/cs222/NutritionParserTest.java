@@ -20,7 +20,6 @@ public class NutritionParserTest {
         }
         return stringBuilder.toString();
     }
-
     @Test
     public void testCalorieInfo() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
