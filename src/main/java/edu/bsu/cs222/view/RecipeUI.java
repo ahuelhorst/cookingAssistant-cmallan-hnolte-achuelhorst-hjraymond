@@ -1,5 +1,6 @@
-package edu.bsu.cs222;
+package edu.bsu.cs222.view;
 
+import edu.bsu.cs222.MainApplication;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;

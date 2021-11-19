@@ -1,5 +1,11 @@
 package edu.bsu.cs222;
 
+import edu.bsu.cs222.model.Recipe;
+import edu.bsu.cs222.model.RecipeResponse;
+import edu.bsu.cs222.model.UrlBuilder;
+import edu.bsu.cs222.model.UrlConnector;
+import edu.bsu.cs222.view.OutputFormatter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

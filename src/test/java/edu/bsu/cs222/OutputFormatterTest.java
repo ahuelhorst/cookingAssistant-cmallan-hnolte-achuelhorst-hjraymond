@@ -1,5 +1,7 @@
 package edu.bsu.cs222;
 
+import edu.bsu.cs222.model.Recipe;
+import edu.bsu.cs222.view.OutputFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;

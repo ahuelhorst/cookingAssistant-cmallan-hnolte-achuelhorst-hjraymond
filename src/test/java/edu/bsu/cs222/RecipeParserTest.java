@@ -1,8 +1,8 @@
 package edu.bsu.cs222;
+import edu.bsu.cs222.model.RecipeParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;

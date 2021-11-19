@@ -1,4 +1,4 @@
-package edu.bsu.cs222;
+package edu.bsu.cs222.model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
