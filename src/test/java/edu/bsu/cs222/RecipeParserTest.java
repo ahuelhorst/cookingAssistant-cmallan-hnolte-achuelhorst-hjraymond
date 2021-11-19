@@ -2,6 +2,7 @@ package edu.bsu.cs222;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,5 +43,11 @@ public class RecipeParserTest {
         URL source = parser.parseRecipeSource(data);
         Assertions.assertEquals(url, source);
     }
-
+    @Test
+    public void testParseImageUrl() throws IOException {
+        URL url = new URL("https://spoonacular.com/recipeImages/1161746-556x370.jpg");
+        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeSourceTest.json"));
+        URL imageUrl = parser.parseImageUrl(data);
+        Assertions.assertEquals(url, imageUrl);
+    }
 }
