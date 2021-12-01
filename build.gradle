@@ -19,7 +19,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'edu.bsu.cs222.RecipeUI'
+    mainClassName = 'edu.bsu.cs222.view.RecipeUI'
 }
 
 javafx {

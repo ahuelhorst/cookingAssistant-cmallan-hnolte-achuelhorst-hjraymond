@@ -1,5 +1,6 @@
 package edu.bsu.cs222;
 
+import edu.bsu.cs222.model.NutritionParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class NutritionParserTest {
-    NutritionParser parser = new NutritionParser();
+    private final NutritionParser parser = new NutritionParser();
 
     private String readFile(InputStream pathName) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -22,25 +23,28 @@ public class NutritionParserTest {
     }
 
     @Test
-    public void testCalorieInfo() throws IOException {
+    public void testParseCalories() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
         String nutrition = parser.parseCalories(data);
         Assertions.assertEquals("316", nutrition);
     }
+
     @Test
-    public void testCarbInfo() throws IOException {
+    public void testParseCarbs() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
         String nutrition = parser.parseCarbs(data);
         Assertions.assertEquals("49g", nutrition);
     }
+
     @Test
-    public void testFatInfo() throws IOException {
+    public void testParseFat() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
         String nutrition = parser.parseFat(data);
         Assertions.assertEquals("12g", nutrition);
     }
+
     @Test
-    public void testProteinInfo() throws IOException {
+    public void testParseProtein() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
         String nutrition = parser.parseProtein(data);
         Assertions.assertEquals("3g", nutrition);

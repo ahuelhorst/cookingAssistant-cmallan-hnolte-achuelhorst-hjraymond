@@ -1,14 +1,18 @@
 package edu.bsu.cs222;
 
+import edu.bsu.cs222.model.Recipe;
+import edu.bsu.cs222.view.OutputFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OutputFormatterTest {
 
-    private final ArrayList<Recipe> testRecipeList = new ArrayList<>();
+    private final List<Recipe> testRecipeList = new ArrayList<>();
     private final OutputFormatter formatter = new OutputFormatter();
 
     @Test
@@ -17,7 +21,7 @@ public class OutputFormatterTest {
         Recipe recipe = new Recipe.Builder().withTitle("Peanut Butter Muffins").andSource(url);
         testRecipeList.add(recipe);
         String expectedFormat = String.format("Title: %s\nSource: %s\n\n", recipe.getTitle(), recipe.getSource());
-        String actualFormat = formatter.format(testRecipeList);
+        String actualFormat = formatter.format((ArrayList<Recipe>) testRecipeList);
         Assertions.assertEquals(expectedFormat, actualFormat);
     }
 

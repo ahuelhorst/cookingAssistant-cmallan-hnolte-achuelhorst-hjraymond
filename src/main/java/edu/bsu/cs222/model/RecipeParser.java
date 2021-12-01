@@ -1,8 +1,9 @@
-package edu.bsu.cs222;
+package edu.bsu.cs222.model;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -31,5 +32,11 @@ public class RecipeParser {
         JSONArray sources = JsonPath.read(data, "$..sourceUrl");
         String recipeSource = sources.get(0).toString();
         return new URL(recipeSource);
+    }
+
+    public URL parseImageUrl(String data) throws MalformedURLException {
+        JSONArray imageUrls = JsonPath.read(data, "$..image");
+        String imageSource = imageUrls.get(0).toString();
+        return new URL(imageSource);
     }
 }

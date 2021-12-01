@@ -1,4 +1,5 @@
 package edu.bsu.cs222;
+import edu.bsu.cs222.model.RecipeParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.*;
@@ -20,17 +21,16 @@ public class RecipeParserTest {
     }
     @Test
     public void testParseId() throws IOException {
-        ArrayList<String> expectedList = new ArrayList<String>(Arrays.asList("1161746", "634921", "655241", "673425","655212"));
+        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("1161746", "634921", "655241", "673425", "655212"));
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
         ArrayList<String> idList = parser.parseRecipeId(data);
         System.out.println(idList);
         Assertions.assertEquals(expectedList, idList);
     }
-
     @Test
     public void testParseTitle() throws IOException {
-        ArrayList<String> expectedList = new ArrayList<String>(Arrays.asList("Peanut Butter Muffins", "Best Peanut Butter Cookies",
-                "Peanut Butter Banana Muffins", "Peanut Butter and Jelly Granola Bars","Peanut Butter and Apple Oatmeal Breakfast Bars"));
+        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("Peanut Butter Muffins", "Best Peanut Butter Cookies",
+                "Peanut Butter Banana Muffins", "Peanut Butter and Jelly Granola Bars", "Peanut Butter and Apple Oatmeal Breakfast Bars"));
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
         ArrayList<String> titleList = parser.parseRecipeTitle(data);
         System.out.println(titleList);
@@ -43,5 +43,11 @@ public class RecipeParserTest {
         URL source = parser.parseRecipeSource(data);
         Assertions.assertEquals(url, source);
     }
-
+    @Test
+    public void testParseImageUrl() throws IOException {
+        URL url = new URL("https://spoonacular.com/recipeImages/1161746-556x370.jpg");
+        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeSourceTest.json"));
+        URL imageUrl = parser.parseImageUrl(data);
+        Assertions.assertEquals(url, imageUrl);
+    }
 }

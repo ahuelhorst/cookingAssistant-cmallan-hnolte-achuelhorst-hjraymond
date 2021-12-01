@@ -1,4 +1,6 @@
-package edu.bsu.cs222;
+package edu.bsu.cs222.model;
+
+import edu.bsu.cs222.model.*;
 
 import java.io.IOException;
 import java.net.URL;
