@@ -1,16 +1,16 @@
 package edu.bsu.cs222.view;
 
 import edu.bsu.cs222.MainApplication;
+import edu.bsu.cs222.model.ApiKey;
+import edu.bsu.cs222.model.Recipe;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -18,105 +18,98 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
 
 public class RecipeUI extends Application {
-    private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable recipeTask = new RecipeTask();
-    private final Label nutritionInfo = new Label();
+    private final OutputGenerator generator = new OutputGenerator();
     private final Label inputInfo = new Label();
-    private final Label outputInfo = new Label();
     private TextField userInput;
-    private TextArea nutritionOutput;
-    private TextArea recipeOutput;
-    private Button retrieveButton;
+    private final Button retrieveButton = new Button("Get Recipes");
+    private final Scene scene = createCookingUI();
+
+
+    private final ApiKey apiKeyTest = new ApiKey();
+
+
     public TextField createUserInput() {
         userInput = new TextField();
-        userInput.setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent event){
-                if (event.getCode().equals(KeyCode.ENTER)){
-                    retrieveButton.fire();
-                }
+        userInput.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                retrieveButton.fire();
             }
         });
         return userInput;
     }
-    public Label nutritionInfoLabel(){
-        nutritionInfo.setText("Nutrition Information Found: ");
-        nutritionInfo.setFont(Font.font("Times New Roman", 15));
-        return nutritionInfo;
-    }
-    public Label outputInfoLabel(){
-        outputInfo.setText("Recipes Found: ");
-        outputInfo.setFont(Font.font("Times New Roman", 15));
-        return outputInfo;
-    }
-    public Label userInfoLabel(){
+
+    public Label userInfoLabel() {
         inputInfo.setText("Enter Ingredients: ");
-        inputInfo.setFont(Font.font("Times New Roman",FontWeight.BOLD, 19));
+        inputInfo.setFont(Font.font("Times New Roman", FontWeight.BOLD, 19));
         return inputInfo;
     }
-    public Button createRetrieveButton(){
-        retrieveButton = new Button("Get Recipes");
-        retrieveButton.setOnAction(event -> executor.execute(recipeTask));
-        return retrieveButton;
+
+    public Label createTitleLabel() {
+        Label titleLabel = new Label();
+        titleLabel.setPrefSize(950, 20);
+        titleLabel.setText("Cooking Assistant");
+        titleLabel.setFont(Font.font("Times New Roman", FontWeight.BOLD, 24));
+        titleLabel.setAlignment(Pos.CENTER);
+        return titleLabel;
     }
-    public TextArea createNutritionOutput(){
-        nutritionOutput = new TextArea();
-        nutritionOutput.setEditable(false);
-        nutritionOutput.setPrefHeight(500);
-        return nutritionOutput;
-    }
-    public TextArea createRecipeOutput(){
-        recipeOutput = new TextArea();
-        recipeOutput.setEditable(false);
-        recipeOutput.setPrefHeight(500);
-        return recipeOutput;
-    }
-    public Parent createCookingUI() {
-        HBox buttonBox = new HBox();
-        HBox labelBox = new HBox();
+
+    public Scene createCookingUI() {
+        Label titleLabel = createTitleLabel();
         VBox container = new VBox();
-        container.setPrefSize(950, 600);
-        labelBox.getChildren().addAll(outputInfoLabel(), nutritionInfoLabel());
-        buttonBox.getChildren().add(createRetrieveButton());
-        container.getChildren().addAll(userInfoLabel(),createUserInput(),buttonBox,labelBox, new HBox(createRecipeOutput(), createNutritionOutput()));
-        labelBox.setSpacing(375);
-        return container;
+        container.setPrefSize(950, 800);
+        container.setSpacing(20);
+        container.getChildren().addAll(titleLabel, userInfoLabel(), retrieveButton, createUserInput());
+        retrieveButton.setOnAction(event -> container.getChildren().add(retrieveRecipeOutput()));
+        return new Scene(container);
     }
+
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(createCookingUI());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    private final class RecipeTask implements Runnable {
-        @Override
-        public void run() {
-            MainApplication mainApplication = new MainApplication();
+
+    public GridPane retrieveRecipeOutput() {
+        return run();
+    }
+    private void disableInput() {
+        userInput.setDisable(true);
+        retrieveButton.setDisable(true);
+    }
+
+    public GridPane run() {
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(12);
+        grid.setPrefSize(950, 600);
+        MainApplication mainApplication = new MainApplication();
+        disableInput();
+        ArrayList<Recipe> list = null;
+        try {
+            list = mainApplication.processRecipes(userInput.getText());
             disableInput();
-            String recipes = null;
-            String nutrition = null;
-            try {
-                recipes = mainApplication.processRecipes(userInput.getText());
-                nutrition = mainApplication.processNutrition(userInput.getText());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            recipeOutput.setText(recipes);
-            nutritionOutput.setText(nutrition);
-            enableInput();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        enableInput();
+        for (int i = 0; i <= 4; i++) {
+            assert list != null;
+            HBox hBox = generator.createOutput(list.get(i));
+            grid.add(hBox, 7, i);
+        }
+        return grid;
+    }
+
+
         private void enableInput() {
             userInput.setDisable(false);
             retrieveButton.setDisable(false);
         }
-        private void disableInput() {
-            userInput.setDisable(true);
-            retrieveButton.setDisable(true);
-        }
-    }
+
 }
+
 
