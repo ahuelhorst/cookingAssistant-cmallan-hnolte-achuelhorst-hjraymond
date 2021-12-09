@@ -13,8 +13,25 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class RecipeOutputGenerator {
+
     public VBox createRecipeOutput(Recipe recipe){
-        Label title = new Label();
+        Hyperlink link = createHyperlink(recipe);
+        Label title = createTitleLabel(recipe);
+        VBox recipeOutput = new VBox();
+        recipeOutput.setSpacing(5);
+        recipeOutput.setBackground(new Background(new BackgroundFill(Color.LAVENDER, null, null)));
+        recipeOutput.setPrefSize(300, 200);
+        recipeOutput.getChildren().addAll(title,link);
+        return recipeOutput;
+    }
+
+    public Label createTitleLabel(Recipe recipe){
+        Label titleLabel = new Label();
+        titleLabel.setText(recipe.getTitle());
+        return titleLabel;
+    }
+
+    public Hyperlink createHyperlink(Recipe recipe){
         Hyperlink link = new Hyperlink("Recipe Link");
         link.setOnAction(event -> {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
@@ -26,13 +43,7 @@ public class RecipeOutputGenerator {
                 }
             }
         });
-        title.setText(recipe.getTitle());
-        VBox recipeOutput = new VBox();
-        recipeOutput.setSpacing(5);
-        recipeOutput.setBackground(new Background(new BackgroundFill(Color.LAVENDER, null, null)));
-        recipeOutput.setPrefSize(300, 200);
-        recipeOutput.getChildren().add(title);
-        recipeOutput.getChildren().add(link);
-        return recipeOutput;
+        return link;
     }
+
 }
