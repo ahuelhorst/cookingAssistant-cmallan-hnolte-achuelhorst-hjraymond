@@ -61,7 +61,7 @@ public class RecipeUI extends Application {
         VBox container = new VBox();
         container.setPrefSize(950, 800);
         container.setSpacing(20);
-        container.getChildren().addAll(titleLabel, userInfoLabel(), retrieveButton, createUserInput());
+        container.getChildren().addAll(titleLabel, userInfoLabel(), createUserInput(), retrieveButton);
         retrieveButton.setOnAction(event -> container.getChildren().add(retrieveRecipeOutput()));
         return new Scene(container);
     }
