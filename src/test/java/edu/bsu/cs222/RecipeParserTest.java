@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class RecipeParserTest {
     private final RecipeParser parser = new RecipeParser();
@@ -19,9 +20,10 @@ public class RecipeParserTest {
         }
         return stringBuilder.toString();
     }
+
     @Test
     public void testParseId() throws IOException {
-        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("1161746", "634921", "655241", "673425", "655212"));
+        List<String> expectedList = Arrays.asList("1161746", "634921", "655241", "673425", "655212");
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
         ArrayList<String> idList = parser.parseRecipeId(data);
         System.out.println(idList);
@@ -29,8 +31,8 @@ public class RecipeParserTest {
     }
     @Test
     public void testParseTitle() throws IOException {
-        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("Peanut Butter Muffins", "Best Peanut Butter Cookies",
-                "Peanut Butter Banana Muffins", "Peanut Butter and Jelly Granola Bars", "Peanut Butter and Apple Oatmeal Breakfast Bars"));
+        List<String> expectedList = Arrays.asList("Peanut Butter Muffins", "Best Peanut Butter Cookies",
+                "Peanut Butter Banana Muffins", "Peanut Butter and Jelly Granola Bars", "Peanut Butter and Apple Oatmeal Breakfast Bars");
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
         ArrayList<String> titleList = parser.parseRecipeTitle(data);
         System.out.println(titleList);
