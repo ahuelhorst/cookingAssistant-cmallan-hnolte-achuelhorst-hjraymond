@@ -26,9 +26,10 @@ public class RecipeUI extends Application {
     private final Label inputInfo = new Label();
     private TextField userInput;
     private final Button retrieveButton = new Button("Get Recipes");
+    ApiKey apiKeyTest = new ApiKey();
+    boolean value = apiKeyTest.checkFileLocation();
     private final Scene scene = createCookingUI();
-    private final ApiKey apiKeyTest = new ApiKey();
-    private final boolean value = apiKeyTest.checkFileLocation();
+
 
 
     public TextField createUserInput() {
@@ -55,7 +56,6 @@ public class RecipeUI extends Application {
         titleLabel.setAlignment(Pos.CENTER);
         return titleLabel;
     }
-
 
     public Scene createCookingUI() {
         if (!value) {
