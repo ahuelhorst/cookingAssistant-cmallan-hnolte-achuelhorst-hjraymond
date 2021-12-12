@@ -25,15 +25,27 @@ public class NutritionOutputGenerator {
         return new Label("Nutrition Info:");
     }
 
-    public Label createNutritionFactsLabel(Recipe recipe) {
+    public Label createCalorieLabel(Recipe recipe) {
         Label calorieLabel = new Label();
         calorieLabel.setText("Calories: " + recipe.getCalories());
         return calorieLabel;
     }
 
+    public Label createFatLabel(Recipe recipe) {
+        Label fatLabel = new Label();
+        fatLabel.setText("Fat: " + recipe.getFat());
+        return fatLabel;
+    }
+
+    public Label createProteinLabel(Recipe recipe) {
+        Label proteinLabel = new Label();
+        proteinLabel.setText("Protein: " + recipe.getFat());
+        return proteinLabel;
+    }
+
     public VBox createLabelBox(Recipe recipe) {
         VBox labelBox = new VBox();
-        labelBox.getChildren().addAll(createNutritionLabel(), createNutritionFactsLabel(recipe));
+        labelBox.getChildren().addAll(createNutritionLabel(), createCalorieLabel(recipe), createFatLabel(recipe), createProteinLabel(recipe));
         return labelBox;
     }
 
