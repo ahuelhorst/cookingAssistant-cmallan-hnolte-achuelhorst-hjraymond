@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
@@ -26,9 +27,8 @@ public class RecipeUI extends Application {
     private TextField userInput;
     private final Button retrieveButton = new Button("Get Recipes");
     private final Scene scene = createCookingUI();
-
-
     private final ApiKey apiKeyTest = new ApiKey();
+    private final boolean value = apiKeyTest.checkFileLocation();
 
 
     public TextField createUserInput() {
@@ -56,13 +56,26 @@ public class RecipeUI extends Application {
         return titleLabel;
     }
 
+
     public Scene createCookingUI() {
+        if (!value) {
+            TextArea textArea = new TextArea("API KEY REQUIRED");
+            textArea.setPrefSize(200, 100);
+            textArea.setFont(Font.font(20));
+            return new Scene(textArea);
+        }
         Label titleLabel = createTitleLabel();
         VBox container = new VBox();
         container.setPrefSize(950, 800);
         container.setSpacing(20);
         container.getChildren().addAll(titleLabel, userInfoLabel(), createUserInput(), retrieveButton);
-        retrieveButton.setOnAction(event -> container.getChildren().add(retrieveRecipeOutput()));
+        retrieveButton.setOnAction(event -> {
+            try {
+                container.getChildren().add(retrieveRecipeOutput());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         return new Scene(container);
     }
 
@@ -72,15 +85,16 @@ public class RecipeUI extends Application {
         primaryStage.show();
     }
 
-    public GridPane retrieveRecipeOutput() {
+    public GridPane retrieveRecipeOutput() throws IOException {
         return run();
     }
+
     private void disableInput() {
         userInput.setDisable(true);
         retrieveButton.setDisable(true);
     }
 
-    public GridPane run() {
+    public GridPane run() throws IOException {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -105,10 +119,10 @@ public class RecipeUI extends Application {
     }
 
 
-        private void enableInput() {
-            userInput.setDisable(false);
-            retrieveButton.setDisable(false);
-        }
+    private void enableInput() {
+        userInput.setDisable(false);
+        retrieveButton.setDisable(false);
+    }
 
 }
 
