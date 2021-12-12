@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class MainApplication {
+
 
     public String connectIngredientUrl(String userInput) throws IOException {
         UrlBuilder urlBuilder = new UrlBuilder();
