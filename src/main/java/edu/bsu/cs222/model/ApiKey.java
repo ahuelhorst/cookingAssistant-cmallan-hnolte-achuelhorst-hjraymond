@@ -2,7 +2,8 @@ package edu.bsu.cs222.model;
 
 public class ApiKey {
 
-    public Boolean checkFileLocation() {
+    public boolean checkFileLocation() {
+
         return ClassLoader.getSystemResource("key.txt") != null;
     }
 }
