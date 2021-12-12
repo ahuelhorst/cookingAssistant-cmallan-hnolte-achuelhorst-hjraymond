@@ -1,8 +1,13 @@
 package edu.bsu.cs222;
+
 import edu.bsu.cs222.model.RecipeParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,32 +29,28 @@ public class RecipeParserTest {
     @Test
     public void testParseId() throws IOException {
         List<String> expectedList = Arrays.asList("1161746", "634921", "655241", "673425", "655212");
-        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
+        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("recipeIdTest.json"));
         ArrayList<String> idList = parser.parseRecipeId(data);
         System.out.println(idList);
         Assertions.assertEquals(expectedList, idList);
     }
+
     @Test
     public void testParseTitle() throws IOException {
         List<String> expectedList = Arrays.asList("Peanut Butter Muffins", "Best Peanut Butter Cookies",
                 "Peanut Butter Banana Muffins", "Peanut Butter and Jelly Granola Bars", "Peanut Butter and Apple Oatmeal Breakfast Bars");
-        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeIdTest.json" ));
+        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("recipeIdTest.json"));
         ArrayList<String> titleList = parser.parseRecipeTitle(data);
         System.out.println(titleList);
         Assertions.assertEquals(expectedList, titleList);
     }
+
     @Test
     public void testParseSource() throws IOException {
         URL url = new URL("https://www.pinkwhen.com/peanut-butter-muffins/");
-        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeSourceTest.json" ));
+        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("recipeSourceTest.json"));
         URL source = parser.parseRecipeSource(data);
         Assertions.assertEquals(url, source);
     }
-    @Test
-    public void testParseImageUrl() throws IOException {
-        URL url = new URL("https://spoonacular.com/recipeImages/1161746-556x370.jpg");
-        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream( "recipeSourceTest.json"));
-        URL imageUrl = parser.parseImageUrl(data);
-        Assertions.assertEquals(url, imageUrl);
-    }
+
 }
