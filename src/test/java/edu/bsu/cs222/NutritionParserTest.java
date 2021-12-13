@@ -30,13 +30,6 @@ public class NutritionParserTest {
     }
 
     @Test
-    public void testParseCarbs() throws IOException {
-        String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
-        String nutrition = parser.parseCarbs(data);
-        Assertions.assertEquals("49g", nutrition);
-    }
-
-    @Test
     public void testParseFat() throws IOException {
         String data = readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("nutritionInfoTest.json"));
         String nutrition = parser.parseFat(data);

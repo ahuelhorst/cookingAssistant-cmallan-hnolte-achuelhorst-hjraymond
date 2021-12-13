@@ -1,6 +1,5 @@
 package edu.bsu.cs222.model;
 
-import edu.bsu.cs222.model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +22,8 @@ public class RecipeResponse {
             URL sourceUrl = getSource(id);
             String calories = getCalories(id);
             String fat = getFat(id);
-            Recipe recipe = new Recipe.Builder().withTitle(title).andId(id).andCalories(calories).andFat(fat).andSource(sourceUrl);
+            String protein = getProtein(id);
+            Recipe recipe = new Recipe.Builder().withTitle(title).andId(id).andCalories(calories).andFat(fat).andProtein(protein).andSource(sourceUrl);
             recipeArrayList.add(recipe);
         }
         return recipeArrayList;
@@ -48,5 +48,12 @@ public class RecipeResponse {
         URL nutritionUrl = urlBuilder.buildNutritionUrl(id);
         String data = connector.openConnection(nutritionUrl);
         return nutritionParser.parseFat(data);
+    }
+    public String getProtein(String id) throws IOException {
+        UrlBuilder urlBuilder = new UrlBuilder();
+        UrlConnector connector = new UrlConnector();
+        URL nutritionUrl = urlBuilder.buildNutritionUrl(id);
+        String data = connector.openConnection(nutritionUrl);
+        return nutritionParser.parseProtein(data);
     }
 }

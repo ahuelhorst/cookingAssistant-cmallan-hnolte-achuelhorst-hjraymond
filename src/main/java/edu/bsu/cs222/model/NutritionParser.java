@@ -9,10 +9,6 @@ public class NutritionParser {
         JSONArray calorieInformation = JsonPath.read(data, "$..calories");
         return calorieInformation.get(0).toString();
     }
-    public String parseCarbs(String data) {
-        JSONArray carbInformation = JsonPath.read(data, "$..carbs");
-        return carbInformation.get(0).toString();
-    }
     public String parseFat(String data) {
         JSONArray fatInformation = JsonPath.read(data, "$..fat");
         return fatInformation.get(0).toString();
