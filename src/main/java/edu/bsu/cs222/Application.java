@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MainApplication {
+public class Application {
 
 
     public String connectIngredientUrl(String userInput) throws IOException {
