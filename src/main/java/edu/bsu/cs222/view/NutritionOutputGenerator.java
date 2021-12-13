@@ -39,7 +39,7 @@ public class NutritionOutputGenerator {
 
     public Label createProteinLabel(Recipe recipe) {
         Label proteinLabel = new Label();
-        proteinLabel.setText("Protein: " + recipe.getFat());
+        proteinLabel.setText("Protein: " + recipe.getProtein());
         return proteinLabel;
     }
 
