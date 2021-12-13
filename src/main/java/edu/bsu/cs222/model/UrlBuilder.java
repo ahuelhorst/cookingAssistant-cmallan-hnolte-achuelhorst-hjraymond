@@ -10,7 +10,8 @@ import java.nio.charset.StandardCharsets;
 public class UrlBuilder {
 
     public URL buildIngredientUrl(String ingredients) throws MalformedURLException, UnsupportedEncodingException {
-        String queryString = encodeString(ingredients);
+        String encodedString = encodeString(ingredients);
+        String queryString = encodedString.replaceAll("%2C", ",");
         String urlString = String.format("https://api.spoonacular.com/recipes/findByIngredients?" +
                 "ingredients=%s&number=5", queryString);
         return new URL(urlString);

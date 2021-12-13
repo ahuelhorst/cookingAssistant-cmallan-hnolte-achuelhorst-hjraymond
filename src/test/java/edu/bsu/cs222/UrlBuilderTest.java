@@ -15,8 +15,8 @@ public class UrlBuilderTest {
 
     @Test
     public void testIngredientUrlBuilder() throws MalformedURLException, UnsupportedEncodingException {
-        String urlString = String.format("https://api.spoonacular.com/recipes/findByIngredients?" +
-                "ingredients=peanut+butter%s+flour%s+sugar&number=5", "%2C", "%2C");
+        String urlString = "https://api.spoonacular.com/recipes/findByIngredients?" +
+                "ingredients=peanut+butter,+flour,+sugar&number=5";
         URL ingredientUrl = new URL(urlString);
         URL actualUrl = urlBuilder.buildIngredientUrl("peanut butter, flour, sugar");
         Assertions.assertEquals(ingredientUrl, actualUrl);
