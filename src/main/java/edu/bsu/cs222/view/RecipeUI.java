@@ -1,9 +1,8 @@
 package edu.bsu.cs222.view;
 
-import edu.bsu.cs222.MainApplication;
+import edu.bsu.cs222.Application;
 import edu.bsu.cs222.model.ApiKey;
 import edu.bsu.cs222.model.Recipe;
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,7 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RecipeUI extends Application {
+public class RecipeUI extends javafx.application.Application {
     private final OutputGenerator generator = new OutputGenerator();
     private final Label inputInfo = new Label();
     private TextField userInput;
@@ -29,7 +28,6 @@ public class RecipeUI extends Application {
     ApiKey apiKeyTest = new ApiKey();
     boolean value = apiKeyTest.checkFileLocation();
     private final Scene scene = createCookingUI();
-
 
 
     public TextField createUserInput() {
@@ -94,13 +92,13 @@ public class RecipeUI extends Application {
         retrieveButton.setDisable(true);
     }
 
-    public GridPane run() throws IOException {
+    public GridPane run() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(12);
         grid.setPrefSize(950, 600);
-        MainApplication mainApplication = new MainApplication();
+        Application mainApplication = new Application();
         disableInput();
         ArrayList<Recipe> list = null;
         try {
