@@ -9,6 +9,7 @@ public class Recipe {
         private URL source;
         private String calories;
         private String fat;
+        private String protein;
 
         public Builder withTitle(String title) {
             this.title = title;
@@ -26,6 +27,10 @@ public class Recipe {
             this.fat = fat;
             return this;
         }
+        public Builder andProtein(String protein){
+            this.protein = protein;
+            return this;
+        }
         public Recipe andSource(URL source){
             this.source = source;
             return new Recipe(this);
@@ -36,12 +41,14 @@ public class Recipe {
     private final URL source;
     private final String calories;
     private final String fat;
+    private final String protein;
 
     public Recipe(Builder builder) {
         this.title = builder.title;
         this.id = builder.id;
         this.calories = builder.calories;
         this.fat = builder.fat;
+        this.protein = builder.protein;
         this.source = builder.source;
     }
     public String getTitle() {
@@ -59,4 +66,5 @@ public class Recipe {
     public String getFat() {
         return fat;
     }
+    public String getProtein(){return protein;}
 }
